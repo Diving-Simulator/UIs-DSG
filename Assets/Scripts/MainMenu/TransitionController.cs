@@ -11,6 +11,11 @@ public class IntroAnimatorController : MonoBehaviour
     [Header("Objects")]
     public GameObject videoObject;
     public GameObject transitionObject;
+    public GameObject canvasButtons;
+    public Animator buttonJogar;
+    public Animator buttonSair;
+
+    public float fadeBotao = 0.25f;
 
     private bool iniciou = false;
 
@@ -21,6 +26,29 @@ public class IntroAnimatorController : MonoBehaviour
             iniciou = true;
             StartCoroutine(ExecutarIntro());
         }
+
+
+        if (iniciou)
+        {
+
+            StartCoroutine(AparecerBotoes());
+
+        }
+    }
+
+    IEnumerator AparecerBotoes()
+    {
+
+        yield return new WaitForSeconds(9.5f);
+
+        canvasButtons.SetActive(true);
+
+        yield return new WaitForSeconds(fadeBotao);
+
+        buttonJogar.SetTrigger("IsFade");
+
+        yield return new WaitForSeconds(fadeBotao);
+        buttonSair.SetTrigger("IsFade");
     }
 
     IEnumerator ExecutarIntro()
@@ -42,7 +70,7 @@ public class IntroAnimatorController : MonoBehaviour
 
         // aguarda 2.5 segundos.
         yield return new WaitForSeconds(2.5f);
-        
+
         // sobe a logo para o todo
         animLogo.SetTrigger("LogoStartSubir");
 
